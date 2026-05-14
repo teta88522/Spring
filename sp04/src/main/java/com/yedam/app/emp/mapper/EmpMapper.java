@@ -1,0 +1,21 @@
+package com.yedam.app.emp.mapper;
+
+import java.util.List;
+
+import com.yedam.app.emp.service.EmpVO;
+
+// Application에서 자동으로 @mapper 추가 해놨음
+public interface EmpMapper {
+	// 조건없는 다건조회
+	public List<EmpVO> selectEmpAll();
+	// 결과가 하나인 단건조회
+	public EmpVO selectEmp(EmpVO emp);
+	// 등록
+	public int insertEmp(EmpVO emp);
+	// 수정
+	public int updateEmp(EmpVO emp);
+	// 삭제
+	public int deleteEmp(int empId);
+	
+
+}

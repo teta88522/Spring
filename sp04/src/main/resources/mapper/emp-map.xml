@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yedam.app.emp.mapper.EmpMapper">
+	<!-- 조건없는 다건 조회 -->
+	<select id="selectEmpAll" parameterType="EmpVO"
+		resultType="EmpVO">
+		SELECT employee_id
+		, first_name
+		, last_name
+		, email
+		,
+		phone_number
+		, hire_date
+		, job_id
+		, salary
+		, commission_pct
+		, manager_id
+		,
+		department_id
+		FROM employees
+		ORDER BY employee_id
+	</select>
+
+	<!-- 결과가 하나인 단건 조회 -->
+	<select id="selectEmp" parameterType="EmpVO" resultType="EmpVO">
+		SELECT
+		employee_id
+		, first_name
+		, last_name
+		, email
+		, phone_number
+		, hire_date
+		,
+		job_id
+		, salary
+		, commission_pct
+		, manager_id
+		, department_id
+		FROM
+		employees
+		WHERE employee_id = #{employeeId}
+	</select>
+
+	<!-- 등록 -->
+	<insert id="insertEmp" parameterType="EmpVo">
+		INSERT INTO employees
+		(
+		employee_id
+		, last_name
+		, email
+		, hire_date
+		, job_id
+		, salary
+		)
+		VALUES
+		(
+		(SELECT NVL(MAX(employee_id),100) + 1 FROM employees)
+		, #{lastName}
+		, #{email}
+		, SYSDATE
+		, #{jobId}
+		, #{salary}
+		)
+	</insert>
+	<!-- 수정 -->
+	<update id="updateEmp" parameterType="EmpVo">
+		UPDATE employees
+		SET
+		last_name = #{lastName}
+		, email = #{email}
+		, hire_date = #{hireDate}
+		, salary = #{salary}
+		WHERE employee_id = #{employeeId}
+	</update>
+
+	<!-- 삭제 -->
+	<delete id="deleteEmp" parameterType="int">
+		DELETE FROM employees
+		WHERE employee_id = #{empId}
+	</delete>
+</mapper>

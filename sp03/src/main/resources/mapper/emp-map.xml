@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 자신이 연결되는 Interface의 명 = namespace -->
+
+<mapper namespace="com.yedam.app.mybatis.mapper.EmpMapper">
+	<!-- 실행하고자 하는 SQL문 작성, SQL문 하나가 태그 하나 -->
+	<!-- 전체조회 --> <!-- 원래는 패키지 까지적어야하는데 typeAliases설정해서 별칭으로 가능 -->
+	<select id="selectAll" resultType="EmpVO">
+		SELECT employee_id
+					, first_name
+					, last_name
+					, email
+					, phone_number
+					, hire_date
+					, job_id
+					, salary
+					, commission_pct
+					, manager_id
+					, department_id
+		FROM employees
+		ORDER BY employee_id
+	</select>
+	<!-- 단건조회 -->
+	<select id="selectInfo" parameterType="EmpVO" resultType="EmpVO">
+		SELECT employee_id
+					, first_name
+					, last_name
+					, email
+					, phone_number
+					, hire_date
+					, job_id
+					, salary
+					, commission_pct
+					, manager_id
+					, department_id
+		FROM employees
+		WHERE employee_id =  #{employeeId} 
+		<!--  parameterType의 field명을 사용, 해당 field명을 기준으로 getter/setter 호출 -->
+	</select>
+	<!-- 등록 -->
+	<insert id="insertInfo" parameterType="EmpVO">
+				INSERT INTO employees
+							(
+								employee_id
+								, last_name
+								, email
+								, hire_date
+								, job_id
+							)
+							VALUES
+							(
+								(SELECT NVL(MAX(employee_id), 100) + 1
+										FROM employees)
+								, #{lastName}
+								, #{email}
+								, SYSDATE
+								, #{jobId}	
+							)
+	</insert>
+
+	<!-- 수정 -->
+	<update id="updateInfo" parameterType="EmpVO">
+					UPDATE employees
+					SET
+							first_name = #{firstName}
+							, salary = #{salary}
+					WHERE employee_id = #{employeeId}
+	</update>
+	<!-- 삭제 -->
+	<delete id ="deleteInfo" parameterType ="int">
+					DELETE FROM employees
+					WHERE employee_id = #{empId}
+	</delete>
+
+</mapper>
