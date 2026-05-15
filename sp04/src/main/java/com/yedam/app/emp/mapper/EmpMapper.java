@@ -16,6 +16,9 @@ public interface EmpMapper {
 	public int updateEmp(EmpVO emp);
 	// 삭제
 	public int deleteEmp(int empId);
+	// 경우에 따라 조건이 존재하는 다건조회;
+	public List<EmpVO> selectList(EmpVO emp);
+	public List<EmpVO> selectListByDept(List<Integer> depts);
 	
 
 }
