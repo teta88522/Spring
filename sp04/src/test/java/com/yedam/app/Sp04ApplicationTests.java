@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.yedam.app.dept.mapper.DeptMapper;
+import com.yedam.app.dept.service.DeptVO;
 import com.yedam.app.emp.mapper.EmpMapper;
 import com.yedam.app.emp.service.EmpVO;
 
@@ -19,6 +21,8 @@ class Sp04ApplicationTests {
 
 	@Autowired
 	private EmpMapper empMap;
+	@Autowired
+	private DeptMapper deptMap;
 
 	@Test
 	void contextLoads() {
@@ -105,5 +109,14 @@ class Sp04ApplicationTests {
 		List<EmpVO> findList = empMap.selectListByDept(deptList);
 		findList.stream().forEach(System.out::println);
 		
+	}
+	
+	@Test
+	void selectListDept() {
+		List<DeptVO> list = deptMap.selectDeptAll();
+		assertTrue(!list.isEmpty());
+		for(DeptVO dept : list) {
+			System.out.println(dept);
+		}
 	}
 }
