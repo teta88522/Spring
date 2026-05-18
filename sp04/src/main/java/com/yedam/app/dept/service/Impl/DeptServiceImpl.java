@@ -46,21 +46,16 @@ public class DeptServiceImpl implements DeptService {
 		}
 		map.put("result", isSuccessed);
 		map.put("target", deptVO);
-		/*
-		 * { "result" : true, "target" : { "employeeId" : 100, "lastName" : "King", ...
-		 * } }
-		 */
+
 		return map;
 	}
 
 	@Override
 	public Map<String, Object> removeDeptInfo(int deptId) {
 		Map<String, Object> map = new HashMap<>();
-		// => map의 변수 : {}
 		int result = deptMap.deleteDept(deptId);
 		if (result >= 1) {
-			map.put("employeeId", deptId);
-			// => { "employeeId" : 100}
+			map.put("departmentId", deptId);
 		}
 		return map;
 	}
